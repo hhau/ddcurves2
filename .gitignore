@@ -1,0 +1,12 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.[o]
+*.[hpp]
+src/*.o
+src/*.so
+src/*.dl
+src/stan_files/*.o
+src/stan_files/*.hpp
+*.html
