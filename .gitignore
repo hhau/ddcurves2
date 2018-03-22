@@ -10,3 +10,4 @@ src/*.dl
 src/stan_files/*.o
 src/stan_files/*.hpp
 *.html
+src-*/
