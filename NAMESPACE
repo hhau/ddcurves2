@@ -2,6 +2,7 @@
 
 export(double_tanh_no_timeseries)
 export(naive_model)
+export(single_tanh_full_covariance)
 import(Rcpp)
 import(methods)
 import(rstan)

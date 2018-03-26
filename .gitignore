@@ -6,7 +6,7 @@
 *.[hpp]
 src/*.o
 src/*.so
-src/*.dl
+src/*.dll
 src/stan_files/*.o
 src/stan_files/*.hpp
 *.html
