@@ -45,7 +45,7 @@ parameters {
   // Here each depth has its own variance, which we may / may not want?
   // we can rep this later if we want the same variance at each depth.
   vector<lower=0>[n_depths] l_sigma;
-  
+  real <lower=0> l_sigma_mean;
 }
 
 transformed parameters {
@@ -65,8 +65,9 @@ model {
   l_sigma_mat = diag_pre_multiply(l_sigma, l_omega);
   
   // priors for covariance matrix
-  l_sigma ~ normal(0, 4);
-  l_omega ~ lkj_corr_cholesky(1);
+  l_sigma ~ normal(l_sigma_mean, 0.25);
+  l_sigma_mean ~ normal(0, 2);
+  l_omega ~ lkj_corr_cholesky(0.5);
   
   for (tt in 1:n_times) {
     // vectorwise over individuals.
