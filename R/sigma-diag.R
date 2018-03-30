@@ -7,7 +7,7 @@
 #' @param print_dir directory to put image in
 #' @param ... optional params passed to pdf()
 #'
-#' @return
+#' @return ggplot2 object from bayesplot
 #' @export
 mean_sigma_trace_diag <- function(stan_obj,
                                  print = FALSE,
@@ -35,7 +35,7 @@ mean_sigma_trace_diag <- function(stan_obj,
 #' @param print_dir directory to put image in
 #' @param ... optional params passed to pdf()
 #'
-#' @return
+#' @return ggplot2 object from bayesplot
 #' @export
 mean_sigma_dens_diag <- function(stan_obj,
                                   print = FALSE,
