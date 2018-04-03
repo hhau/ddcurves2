@@ -17,7 +17,7 @@ mean_sigma_trace_diag <- function(stan_obj,
   bayesplot::color_scheme_set("mix-teal-pink")
   all_sigma_samples <- rstan::extract(stan_obj, pars = par_strings, permuted = FALSE)
   res <- bayesplot::mcmc_trace(all_sigma_samples)
-  print(res)
+  # print(res)
   
   if (print & (print_dir != "")) {
     pdf(file = paste0(print_dir, format(Sys.time(), "%F---%H-%M-%S"), "_all-sigma-trace.pdf"), ...)
@@ -45,7 +45,7 @@ mean_sigma_dens_diag <- function(stan_obj,
   bayesplot::color_scheme_set("mix-teal-pink")
   all_sigma_samples <- rstan::extract(stan_obj, pars = par_strings, permuted = FALSE)
   res <- bayesplot::mcmc_dens_overlay(all_sigma_samples)
-  print(res)
+  # print(res)
   
   if (print & (print_dir != "")) {
     pdf(file = paste0(print_dir, format(Sys.time(), "%F---%H-%M-%S"), "_all-sigma-trace.pdf"), ...)
