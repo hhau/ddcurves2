@@ -17,10 +17,10 @@ data {
 parameters {
   
   // regression parameters with appropriate constraints
-  vector<lower = 1020, upper = 1030>[n_times] beta_zero;
+  vector[n_times] beta_zero;
   
   vector<lower = 0>[n_times] beta_one;
-  vector<lower = 0>[n_times] beta_four;
+  // vector<lower = 0>[n_times] beta_four;
 
   vector<lower = 0>[n_times] beta_three;
   vector<lower = 0>[n_times] beta_six;
@@ -37,15 +37,15 @@ parameters {
   // regression coefficient means
   
   // because we can't do fancy constraints, have to enumerate them all out.
-  real<lower = 1020, upper = 1030> mean_beta_zero;
+  real mean_beta_zero;
   real<lower = 0> mean_beta_one;
-  real<lower = 0> mean_beta_four;
+  // real<lower = 0> mean_beta_four;
   real<lower = 0> mean_beta_three;
   real<lower = 0> mean_beta_six;
   positive_ordered[2] mean_beta_midpoint;
 
   // variances of the regression coefficients
-  vector<lower=0>[7] sigma_beta;
+  vector<lower=0>[6] sigma_beta;
   
   // variance of the regression curve
   real<lower = 0> sigma_curve;
@@ -59,7 +59,7 @@ transformed parameters {
     // beta_final[tt,] = (beta_mean + beta_raw[tt,]' .* sigma_beta)';
     // vectorwise over individuals.
    fitted_values[tt,] = (beta_zero[tt] - beta_one[tt] * tanh((depths + beta_midpoint[tt, 1]) / beta_three[tt]) +
-                                       - beta_four[tt] * tanh((depths + beta_midpoint[tt, 2]) / beta_six[tt]))'; 
+                                       - beta_one[tt] * tanh((depths + beta_midpoint[tt, 2]) / beta_six[tt]))'; 
   }
   
 }
@@ -71,7 +71,7 @@ model {
     // beta_raw[tt, ] ~ normal(0, 1);
 
     beta_midpoint[tt, 1] ~ normal(mean_beta_midpoint[1], sigma_beta[3]);
-    beta_midpoint[tt, 2] ~ normal(mean_beta_midpoint[2], sigma_beta[6]);
+    beta_midpoint[tt, 2] ~ normal(mean_beta_midpoint[2], sigma_beta[5]);
   }
   
   // "elicited" priors
@@ -82,21 +82,22 @@ model {
   beta_one ~ normal(mean_beta_one, sigma_beta[2]);
   beta_three ~ normal(mean_beta_three, sigma_beta[4]);
 
-  beta_four ~ normal(mean_beta_four, sigma_beta[5]);
-  beta_six ~ normal(mean_beta_six, sigma_beta[7]);
+  //beta_four ~ normal(mean_beta_four, sigma_beta[5]);
+  beta_six ~ normal(mean_beta_six, sigma_beta[6]);
+  
+  mean_beta_zero ~ normal(1025, 1);
+  mean_beta_one ~ normal(5, 2) T[0,];
+  mean_beta_three ~ normal(80, 5) T[0,];
 
-  mean_beta_one ~ normal(3, 5) T[0,];
-  mean_beta_three ~ normal(80, 10) T[0,];
-
-  mean_beta_four ~ normal(3, 5) T[0,];
-  mean_beta_six ~ normal(80, 10) T[0,];
+  //mean_beta_four ~ normal(3, 5) T[0,];
+  mean_beta_six ~ normal(80, 5) T[0,];
 
 
-  mean_beta_midpoint[1] ~ normal(100, 15);
-  mean_beta_midpoint[2] ~ normal(100, 15);
+  mean_beta_midpoint[1] ~ normal(75, 5);
+  mean_beta_midpoint[2] ~ normal(150, 5);
 
   // no extra truncation here because it is of type vector, and Stan does not
   // yet support truncation on vector types
-  sigma_beta ~ normal(0, 5);
-  sigma_curve ~ normal(0, 1) T[0,];
+  sigma_beta ~ normal(0, 15);
+  sigma_curve ~ normal(0, 0.1) T[0,];
 }

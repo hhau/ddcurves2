@@ -7,3 +7,6 @@ output: github_document
 # dpcurves
 This is a private R package to enable the faster iteration of stan models and
 outputs. Limited current functionality.
+
+# TODO
+- Add reshape2 to NAMESPACE, as I'm now using it for ::melt.

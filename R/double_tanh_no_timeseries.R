@@ -7,7 +7,7 @@
 #' @return an object of class 'stanfit'
 #' @export
 double_tanh_no_timeseries <- function(stan_data_list, ...) {
-  model_fit <- rstan::sampling(stanmodels$double_tanh_hierarchical_mean, 
+  model_fit <- rstan::sampling(stanmodels$double_tanh_hierarchical_mean_reparam, 
                                data = stan_data_list, ...)
   return(model_fit)
 }

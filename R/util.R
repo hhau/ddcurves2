@@ -11,3 +11,25 @@
   }
   return(output)
 }
+
+.single_tanh_function <- function(z, beta) {
+  
+  if (length(beta) != 4) {
+    stop("Beta incorrect length")
+  }
+  
+  res <- beta[1] - beta[2] * tanh((z + beta[3]) / beta[4])
+  return(res)
+  
+}
+
+.double_tanh_function <- function(z, beta) {
+  
+  if (length(beta) != 6) {
+    stop("Beta incorrect length")
+  }
+  
+  res <- beta[1] - beta[2] * (tanh((z + beta[3]) / beta[4]) + tanh((z + beta[5]) / beta[6]))  
+  return(res)
+  
+}
