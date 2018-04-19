@@ -49,12 +49,15 @@ transformed parameters {
   beta_orig[1, ] = exp(beta_prime_t0)';
   
   for (tt in 1:n_times) {
-    fitted_values[tt, ] = (beta_orig[tt, 1] - beta_orig[tt, 2] * (tanh((depths + beta_orig[tt, 3]) / beta_orig[tt, 4]) + 
-                                                                  tanh((depths + beta_orig[tt, 3] + beta_orig[tt, 5]) / beta_orig[tt, 6])))';
     
     if (tt >= 2) {
       beta_orig[tt, ] = exp(kappa_prime + phi_prime .* log(beta_orig[tt - 1,]') + innovations_prime[tt - 1,]')';
     }
+    
+    fitted_values[tt, ] = (beta_orig[tt, 1] - beta_orig[tt, 2] * (tanh((depths + beta_orig[tt, 3]) / beta_orig[tt, 4]) + 
+                                                                  tanh((depths + beta_orig[tt, 3] + beta_orig[tt, 5]) / beta_orig[tt, 6])))';
+    
+    
 
   }
 
@@ -63,10 +66,20 @@ transformed parameters {
 model {
   for (tt in 1:n_times) {
     // vectorwise over individuals.
+    print("tt: ", tt);
+    print("fitted value: ", fitted_values[tt,]);
+    print("beta_orig: ", beta_orig[tt,]);
+    
+    print("beta_prime_t0: ", beta_prime_t0);
+    print("phi_prime: ", phi_prime);
+    print("kappa_prime: ", kappa_prime);
+    print("sigma_curve: ", sigma_curve);
+    
     densities[tt,] ~ normal(fitted_values[tt,], sigma_curve);
 
     if (tt >= 2) {
-      innovations_prime[tt - 1, ] ~ normal(0, beta_prime_sigma);   
+      innovations_prime[tt - 1, ] ~ normal(0, beta_prime_sigma);
+      print("innovations_prime: ", innovations_prime[tt - 1,]);
     }
   }
 
