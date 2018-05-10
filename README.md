@@ -1,11 +1,10 @@
-ddcurves2: depth density curve models in stan
+`ddcurves2`: depth density curve models in stan
 ================
 Andrew Manderson
 
-`ddcurves2`
-===========
-
 This is a private R package to enable the faster iteration of Stan models and outputs. Limited current functionality.
+
+(The above comment is really outdated, I've removed most of the old models to speed compilation time.)
 
 Installation notes
 ==================
