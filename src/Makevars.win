@@ -3,7 +3,7 @@ BOOST_NOT_IN_BH_SRC = `"$(R_HOME)/bin$(R_ARCH_BIN)/Rscript" --vanilla -e "cat(sy
 PKG_CPPFLAGS = -I"../inst/include" -I"$(STANHEADERS_SRC)" -I"$(BOOST_NOT_IN_BH_SRC)" -DBOOST_RESULT_OF_USE_TR1 -DBOOST_NO_DECLTYPE -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBOOST_NO_CXX11_RVALUE_REFERENCES
 
 CXX_STD = CXX11
-SOURCES = stan_files/depth_contour_hierarchical_mean.stan stan_files/double_tanh_hierarchical_mean_reparam.stan stan_files/single_tanh_full_cov_matrix.stan stan_files/single_tanh_fixed_cov_structure.stan stan_files/single_tanh_fixed_corr_structure_normal_mean.stan stan_files/double_tanh_fixed_hyperparams_reparam.stan
+SOURCES = stan_files/double_tanh_hierarchical_mean_reparam.stan stan_files/double_tanh_time_series.stan stan_files/initial_amplitude.stan 
 OBJECTS = $(SOURCES:.stan=.o) init.o
 
 all: $(SHLIB)

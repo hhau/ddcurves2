@@ -85,19 +85,19 @@ model {
   //beta_four ~ normal(mean_beta_four, sigma_beta[5]);
   beta_six ~ normal(mean_beta_six, sigma_beta[6]);
   
-  mean_beta_zero ~ normal(1025, 1);
+  mean_beta_zero ~ normal(1025, 10);
   mean_beta_one ~ normal(5, 2) T[0,];
-  mean_beta_three ~ normal(80, 5) T[0,];
+  mean_beta_three ~ normal(80, 15) T[0,];
 
   //mean_beta_four ~ normal(3, 5) T[0,];
-  mean_beta_six ~ normal(80, 5) T[0,];
+  mean_beta_six ~ normal(80, 15) T[0,];
 
 
-  mean_beta_midpoint[1] ~ normal(75, 5);
-  mean_beta_midpoint[2] ~ normal(150, 5);
+  mean_beta_midpoint[1] ~ normal(75, 15);
+  mean_beta_midpoint[2] ~ normal(150, 15);
 
   // no extra truncation here because it is of type vector, and Stan does not
   // yet support truncation on vector types
   sigma_beta ~ normal(0, 15);
-  sigma_curve ~ normal(0, 0.1) T[0,];
+  sigma_curve ~ normal(0, 0.25) T[0,];
 }

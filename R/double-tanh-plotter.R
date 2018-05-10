@@ -12,12 +12,19 @@
 #' @param stan_dat the data set
 #' @param z_new a sorted vector of z (x) values to plot the curve over 
 #' @param ... currently unused  
+#' @param plot_pred_intervals if TRUE, also plot the prediction intervals in
+#' addition to the mean credible intervals
 #'
 #' @return a ggplot2 object of the fitted curve, split by chain, with credible
 #' interval
 #' @export
-double_fitted_curve_plotter <- function(stan_obj, index, stan_dat,
-                                        z_new = seq(from = -300, to = 0, length.out = 301),
+double_fitted_curve_plotter <- function(stan_obj,
+                                        index,
+                                        stan_dat,
+                                        z_new = seq(from = -300,
+                                                    to = 0,
+                                                    length.out = 301),
+                                        plot_pred_intervals = FALSE,
                                         ...) {
   
   # extract relevant beta samples, and put them in appropriate data structure
@@ -48,7 +55,7 @@ double_fitted_curve_plotter <- function(stan_obj, index, stan_dat,
   
   # this chunk will take some time, comment out if it's not worthwhile
   #  also assumes the correct number of beta's, and in the right order.
-  chain_fited_curves <- lapply(index_samples_by_chain, function(x) {
+  chain_fitted_curves <- lapply(index_samples_by_chain, function(x) {
     apply(x, 1, function(x) {
       .double_tanh_function(z_new, x)
     })
@@ -77,9 +84,9 @@ double_fitted_curve_plotter <- function(stan_obj, index, stan_dat,
   plot_df <- c()
   
   for (ii in 1:n_chains) {
-    res <- apply(chain_fited_curves[[ii]], 1, mean)
-    lower_quant <- apply(chain_fited_curves[[ii]], 1, quantile, 0.025)
-    upper_quant <- apply(chain_fited_curves[[ii]], 1, quantile, 0.975)
+    res <- apply(chain_fitted_curves[[ii]], 1, mean)
+    lower_quant <- apply(chain_fitted_curves[[ii]], 1, quantile, 0.025)
+    upper_quant <- apply(chain_fitted_curves[[ii]], 1, quantile, 0.975)
     t_df <- cbind(x = z_new, ii, y = res, lower_quant, upper_quant)
     plot_df <- rbind(plot_df, t_df)
   }
@@ -101,6 +108,57 @@ double_fitted_curve_plotter <- function(stan_obj, index, stan_dat,
     ggplot2::ggtitle(paste0("Time point: ", index)) + 
     ggplot2::xlab("Depth") +
     ggplot2::ylab("Density")
+  
+  # Sun May 06 15:18:44 2018 ------------------------------
+  # adding prediction intervals to this function.
+  # should refactor and add this into code above, lacking time.
+  # 
+  if (plot_pred_intervals) {
+    sigma_curve_samples <- rstan::extract(stan_obj, "sigma_curve", permuted = FALSE)
+    ppd_samples <- list()
+    n_mcmc_samples <- dim(chain_fitted_curves[[1]])[2]
+    n_z_new <- length(z_new)
+    
+    # Sun May 06 15:35:48 2018 ------------------------------
+    # there must be a clever way to lapply/apply this, can't figure it out
+    # though
+    for (ii in 1:n_chains) {
+      temp_mat <- matrix(NA, nrow = n_mcmc_samples, ncol = n_z_new)
+      
+      for (zz in 1:n_mcmc_samples) {
+        temp_mat[zz, ] <- rnorm(n_z_new,
+                                mean = chain_fitted_curves[[ii]][, zz],
+                                sd = sigma_curve_samples[zz, ii, 1])
+      }
+      
+      ppd_samples[[ii]] <- temp_mat
+      
+    }
+    
+    # ggplot2ify this
+    ppd_plot_df <- c()
+    
+    for (ii in 1:n_chains) {
+      ppd_lower <- apply(ppd_samples[[ii]], 2, quantile, 0.025)
+      ppd_upper <- apply(ppd_samples[[ii]], 2, quantile, 0.975)
+      t_df <- data.frame(x = z_new, ppd_lower = ppd_lower, ppd_upper = ppd_upper, chain_id = ii)
+      ppd_plot_df <- rbind(ppd_plot_df, t_df)
+    }
+    
+    gg_obj <- gg_obj +
+      ggplot2::geom_ribbon(
+        data = ppd_plot_df,
+        mapping = ggplot2::aes(
+          x = x,
+          ymin = ppd_lower,
+          ymax = ppd_upper,
+          group = chain_id
+        ),
+        alpha = 0.1
+      )
+  
+  }
+  
   
   return(gg_obj)
   

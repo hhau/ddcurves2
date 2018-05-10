@@ -49,56 +49,50 @@ transformed parameters {
   beta_orig[1, ] = exp(beta_prime_t0)';
   
   for (tt in 1:n_times) {
-    
     if (tt >= 2) {
       beta_orig[tt, ] = exp(kappa_prime + phi_prime .* log(beta_orig[tt - 1,]') + innovations_prime[tt - 1,]')';
     }
     
     fitted_values[tt, ] = (beta_orig[tt, 1] - beta_orig[tt, 2] * (tanh((depths + beta_orig[tt, 3]) / beta_orig[tt, 4]) + 
                                                                   tanh((depths + beta_orig[tt, 3] + beta_orig[tt, 5]) / beta_orig[tt, 6])))';
-    
-    
-
   }
-
 }
 
 model {
-  for (tt in 1:n_times) {
-    // vectorwise over individuals.
-    print("tt: ", tt);
-    print("fitted value: ", fitted_values[tt,]);
-    print("beta_orig: ", beta_orig[tt,]);
-    
-    print("beta_prime_t0: ", beta_prime_t0);
-    print("phi_prime: ", phi_prime);
-    print("kappa_prime: ", kappa_prime);
-    print("sigma_curve: ", sigma_curve);
-    
+  for (tt in 1:n_times) {  
+
+    // print("tt:", tt);
+    // print("fitted value: ", fitted_values[tt,]);
+
     densities[tt,] ~ normal(fitted_values[tt,], sigma_curve);
 
     if (tt >= 2) {
       innovations_prime[tt - 1, ] ~ normal(0, beta_prime_sigma);
-      print("innovations_prime: ", innovations_prime[tt - 1,]);
+      // print("innovations_prime: ", innovations_prime[tt - 1,]);
     }
   }
+
+  // print("fitted value [1]: ", fitted_values[1,]);
+  // print("fitted value [20]: ", fitted_values[20,]);
+  // print("beta_orig [1]: ", beta_orig[1,]);
+  // print("beta_orig [20]: ", beta_orig[20,]);
 
   // ar priors
   // that these should be closer to 1 than to zero. 
   phi_prime ~ beta(3, 1);
 
   // I really have no idea what on earth this should be
-  kappa_prime ~ normal(0, 3);
+  kappa_prime ~ normal(0, 10);
 
   // this might be too tight? We shall see, again unsure as to the 
   // scale of these in this time series structure.
-  beta_prime_sigma ~ normal(0, 2);
+  beta_prime_sigma ~ normal(0, 5);
 
   // initial value priors
   // log scale
-  beta_prime_t0 ~ normal(t0_prior_means, log(3));
+  beta_prime_t0 ~ normal(t0_prior_means, log(1.5));
 
   // It's tiny.
-  sigma_curve ~ normal(0, 0.1);
+  sigma_curve ~ normal(0, 0.25);
 
 }

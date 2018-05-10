@@ -1,7 +1,7 @@
 #' Fit the double tanh model, with no timeseries structre and an simple
 #' hierarchical mean
 #'
-#' @param stan_data_list  Stan data list 
+#' @param stan_data_list Stan data list 
 #' @param ... other parameters that get passed to \link[rstan]{sampling}
 #'
 #' @return an object of class 'stanfit'

@@ -19,4 +19,14 @@
 #' 
 #' @format an 11 x 11 lower triangular matrix, suitable for passing directly
 #' into Stan's "cholesky_factor_corr" type.
-"indep_fit_chol_emp_cor_mat" 
+"indep_fit_chol_emp_cor_mat"
+
+#' The initial amplitude data, for both time series, with the zeros removed.
+#' 
+#' Note that the removal of the zero time points (due to filtering) means the
+#' indices don't line up with the Crux* objects, if you want to get certain time
+#' points, match by date (coerce both via as as.POSIXct). If you really wanted
+#' to you could match via rownames (they technically still match).
+#' 
+#' @format an 1473 x 4 data frame
+"a0_data_no_zeros"

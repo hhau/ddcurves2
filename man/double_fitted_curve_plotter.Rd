@@ -5,7 +5,7 @@
 \title{Plot the fitted curves for the double tanh model.}
 \usage{
 double_fitted_curve_plotter(stan_obj, index, stan_dat, z_new = seq(from =
-  -300, to = 0, length.out = 301), ...)
+  -300, to = 0, length.out = 301), plot_pred_intervals = FALSE, ...)
 }
 \arguments{
 \item{stan_obj}{a 'stanfit' object for a model with two tanh components}
@@ -15,6 +15,9 @@ double_fitted_curve_plotter(stan_obj, index, stan_dat, z_new = seq(from =
 \item{stan_dat}{the data set}
 
 \item{z_new}{a sorted vector of z (x) values to plot the curve over}
+
+\item{plot_pred_intervals}{if TRUE, also plot the prediction intervals in
+addition to the mean credible intervals}
 
 \item{...}{currently unused}
 }
