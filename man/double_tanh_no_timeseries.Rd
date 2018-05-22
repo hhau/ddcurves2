@@ -8,7 +8,11 @@ hierarchical mean}
 double_tanh_no_timeseries(stan_data_list, ...)
 }
 \arguments{
-\item{stan_data_list}{Stan data list}
+\item{stan_data_list}{Stan data list, with elements:
+n_depths (the number of depth values which we record density at)
+n_times (the number of time points at which density is recorded)
+depths (vector of depth values)
+densities (an n_times * n_depths matrix of density observations.)}
 
 \item{...}{other parameters that get passed to \link[rstan]{sampling}}
 }

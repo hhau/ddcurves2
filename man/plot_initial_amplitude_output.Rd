@@ -2,15 +2,16 @@
 % Please edit documentation in R/plot-initial-amplitude-output.R
 \name{plot_initial_amplitude_output}
 \alias{plot_initial_amplitude_output}
-\title{Plot the fitted curve and its credible intervals, and the prediction 
+\title{Plot the fitted curve and its credible intervals, and the prediction
 intervals.}
 \usage{
 plot_initial_amplitude_output(model_fit, stan_dat, ...)
 }
 \arguments{
-\item{model_fit}{an "initial_amplitde" model stanfit objects}
+\item{model_fit}{an "initial_amplitde model" stanfit object}
 
-\item{stan_dat}{the data associated with the model_fit objects}
+\item{stan_dat}{the data associated with the model_fit object, for format of
+this list, see \code{\link{initial_amplitude_model}}}
 
 \item{...}{unused currently}
 }

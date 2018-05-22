@@ -7,7 +7,8 @@
 double_tanh_with_timeseries(stan_data_list, ...)
 }
 \arguments{
-\item{stan_data_list}{Stan data list}
+\item{stan_data_list}{Stan data list, for structure of this list, see:
+\code{\link{double_tanh_no_timeseries}}}
 
 \item{...}{other parameters that get passed to \link[rstan]{sampling}}
 }

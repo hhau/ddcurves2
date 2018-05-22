@@ -7,7 +7,13 @@
 initial_amplitude_model(stan_data_list, ...)
 }
 \arguments{
-\item{stan_data_list}{Stan data list}
+\item{stan_data_list}{Stan data list, with elements:
+N (number of observations),
+ssh (the vector of sea surface heights),
+a_zero (the vector of initial amplitudes),
+N_ssh_new (number of points to sample the PPD at),
+ssh_new (sea surface heights at which we sample the PPD),
+poly_deg (the degree of polynomial that we fit the the data)}
 
 \item{...}{other parameters that get passed to \link[rstan]{sampling}}
 }

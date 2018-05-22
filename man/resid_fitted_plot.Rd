@@ -7,7 +7,8 @@
 resid_fitted_plot(stan_data_list = stan_dat, stan_obj = model_fit, ...)
 }
 \arguments{
-\item{stan_data_list}{the data list passed to the stanmodel}
+\item{stan_data_list}{the data list passed to the stanmodel, for the
+structure of this list see: \code{\link{double_tanh_no_timeseries}}}
 
 \item{stan_obj}{the stanfit object fitted using the aforementioned data}
 

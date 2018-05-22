@@ -1,7 +1,11 @@
 #' Fit the double tanh model, with no timeseries structre and an simple
 #' hierarchical mean
 #'
-#' @param stan_data_list Stan data list 
+#' @param stan_data_list Stan data list, with elements:
+#' n_depths (the number of depth values which we record density at)
+#' n_times (the number of time points at which density is recorded)
+#' depths (vector of depth values)
+#' densities (an n_times * n_depths matrix of density observations.) 
 #' @param ... other parameters that get passed to \link[rstan]{sampling}
 #'
 #' @return an object of class 'stanfit'
