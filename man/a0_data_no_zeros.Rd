@@ -4,7 +4,7 @@
 \name{a0_data_no_zeros}
 \alias{a0_data_no_zeros}
 \title{The initial amplitude data, for both time series, with the zeros removed.}
-\format{an 1473 x 4 data frame}
+\format{a 1473 x 4 data.frame}
 \usage{
 a0_data_no_zeros
 }

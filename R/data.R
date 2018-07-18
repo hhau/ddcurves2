@@ -28,5 +28,16 @@
 #' points, match by date (coerce both via as as.POSIXct). If you really wanted
 #' to you could match via rownames (they technically still match).
 #' 
-#' @format an 1473 x 4 data frame
+#' @format a 1473 x 4 data.frame
 "a0_data_no_zeros"
+
+
+#' The cholesky needed to approximately sample the posterior around a 
+#' curve.
+#' 
+#' This cholesky is found by getting the correlation matrix for the mu_{beta}
+#' samples, and combining it with the average (over time) standard deviation
+#' for each of the coefficients
+#' 
+#' @format a  6 x 6 lower triangular matrix
+"approx_post_chol"

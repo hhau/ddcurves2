@@ -11,3 +11,6 @@ src/stan_files/*.o
 src/stan_files/*.hpp
 *.html
 src-*/
+*.ini
+*.dll
+*.dll
