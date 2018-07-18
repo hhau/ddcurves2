@@ -13,4 +13,3 @@ src/stan_files/*.hpp
 src-*/
 *.ini
 *.dll
-*.dll
