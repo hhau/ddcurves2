@@ -28,7 +28,7 @@ double_fitted_curve_plotter <- function(stan_obj,
                                         ...) {
   
   # extract relevant beta samples, and put them in appropriate data structure
-  beta_strs <- grep("^beta*", stan_obj@model_pars, value = TRUE)
+  beta_strs <- grep("^beta_[a-z]+$", stan_obj@model_pars, value = TRUE)
   
   # do we want a plot by chain option? If so we will need different extract 
   # methods? I think i actually want this as default (diagnostic)
@@ -158,8 +158,6 @@ double_fitted_curve_plotter <- function(stan_obj,
       )
   
   }
-  
-  
   return(gg_obj)
   
 }

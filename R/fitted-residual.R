@@ -29,7 +29,8 @@ resid_fitted_plot <- function(stan_data_list = stan_dat,
   res_plot <- ggplot2::ggplot(data = plot_df, ggplot2::aes(x = x, y = y)) +
     ggplot2::geom_point() +
     ggplot2::xlab("Fitted value") +
-    ggplot2::ylab("Residual")
+    ggplot2::ylab("Residual") +
+    ggplot2::theme_bw()
 
   return(res_plot)
 }

@@ -13,13 +13,14 @@ resid_depth_plot <- function(stan_data_list = stan_dat, stan_obj = model_fit, ..
   mean_fitted_val <- apply(fitted_val_samples[[1]], 2:3, mean)
   mean_resid <- stan_data_list$densities - mean_fitted_val
   plot_df <- data.frame(x = rep(stan_dat$depths, nrow(stan_dat$densities)),
-                        y = as.vector(t(residual_mean)))
+                        y = as.vector(t(mean_resid)))
 
-  res_plot <- ggplot(data = plot_df, aes(x = x, y = y)) +
-    geom_point(alpha = 0.152) +
-    theme_bw() +
-    geom_hline(yintercept = 0, colour = "grey", size = 1.5, alpha = 0.2) +
-    xlab("Depth") + ylab("Residual")
+  res_plot <- ggplot2::ggplot(data = plot_df, ggplot2::aes(x = x, y = y)) +
+    ggplot2::geom_point(alpha = 0.152) +
+    ggplot2::theme_bw() +
+    ggplot2::geom_hline(yintercept = 0, colour = "grey", size = 1.5, alpha = 0.2) +
+    ggplot2::xlab("Depth") +
+    ggplot2::ylab("Residual")
 
   return(res_plot)
 }
