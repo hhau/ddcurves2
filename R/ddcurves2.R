@@ -12,6 +12,6 @@
 #' @import rstantools
 #'
 #' @description
-#' The \pkg{ddcurves2} package is a WIP package allowing faster iteration of
-#' models of interest.
+#' The \pkg{ddcurves2} package is a collection of models for oceanographic 
+#' depth-density data
 NULL
