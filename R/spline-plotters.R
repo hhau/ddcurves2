@@ -8,7 +8,7 @@
 #' @param split_by_chain should the plots be split by chain? If TRUE, then
 #' they will be, if FALSE the chains will be combined
 #' @param interval_quantile what is the lower quantile of the interval of 
-#' interest (0.025 = 95% intervals)
+#' interest (0.025 = 95\% intervals)
 #'
 #' @return a ggplot2 object? maybe something that has been grid.arranged?
 #'  I think I can do this with faceting.
@@ -113,7 +113,7 @@ plot_spline_posteriors <- function(model_fit,
 #' @param split_by_chain should the plots be split by chain? If TRUE, then
 #' they will be, if FALSE the chains will be combined
 #' @param interval_quantile what is the lower quantile of the interval of 
-#' interest (0.025 = 95% intervals)
+#' interest (0.025 = 95\% intervals)
 #' @return a ggplot2 object
 #' @export
 plot_spline_fit <- function(model_fit, 

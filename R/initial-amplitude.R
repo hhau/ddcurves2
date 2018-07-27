@@ -10,7 +10,8 @@
 #' N_ssh_new (number of points to sample the PPD at),
 #' ssh_new (sea surface heights at which we sample the PPD),
 #' poly_deg (the degree of polynomial that we fit the the data)
-#' @param ... other parameters that get passed to \link[rstan]{sampling}
+#' @param ... other parameters that get passed to  
+#'  \code{\link[rstan:stanmodel-method-sampling]{sampling}}
 #'
 #' @return an object of class 'stanfit'
 #' @export

@@ -10,7 +10,7 @@ double_tanh_latent_spline(stan_data_list, ...)
 \arguments{
 \item{stan_data_list}{A named list of inputs to the Stan model, see details}
 
-\item{...}{other options that will be passed to \link\link{rstan}{sampling}}
+\item{...}{other options that will be passed to \code{\link[rstan]{sampling}}}
 }
 \value{
 a "stanfit" object
@@ -34,7 +34,7 @@ spline.
 second column is the time vector rescaled to be between zero and one,
 usually this is evenly spaced.
 \item z_mat : an n_t by n_k + 1 matrix of spline bases, formed by calling
-\link\link{splines}{bs} in the correct manner.
+\code{\link[splines]{bs}} in the correct manner.
 \item n_new : number of new z_values to sample the fitted curve posterior at.
 \item z_new: vector of new z_values to sample the fitted curve posterior at.
 }

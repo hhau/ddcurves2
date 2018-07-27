@@ -5,9 +5,10 @@
 #' coefficients.
 #'
 #' @param stan_data_list A named list of inputs to the Stan model, see details
-#' @param ... other options that will be passed to \link[rstan]{sampling}
+#' @param ... other options that will be passed to  
+#'  \code{\link[rstan:stanmodel-method-sampling]{sampling}}
 #'
-#' @details the **stan\_data\_list** object should have the following named
+#' @details the \code{stan_data_list} object should have the following named
 #' elements:
 #'  * n_t : the number of timepoints in the data set.
 #'  * n_z : the number of depths the data is measured at.
@@ -20,7 +21,7 @@
 #'    second column is the time vector rescaled to be between zero and one,
 #'    usually this is evenly spaced.
 #'  * z_mat : an n_t by n_k + 1 matrix of spline bases, formed by calling
-#'    \link[splines]{bs} in the correct manner.
+#'    \code{\link[splines]{bs}} in the correct manner.
 #'  * n_new : number of new z_values to sample the fitted curve posterior at.
 #'  * z_new: vector of new z_values to sample the fitted curve posterior at. 
 #'
@@ -79,7 +80,6 @@
 #'   control = list(max_treedepth = 14, stepsize = 1e-6, adapt_delta = 0.995),
 #'   init_r = 0.25
 #' )
-
 #' }
 #'
 #' @return a "stanfit" object

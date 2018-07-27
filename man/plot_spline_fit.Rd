@@ -18,7 +18,7 @@ plot_spline_fit(model_fit, stan_data_list, times_to_plot = 1:4,
 they will be, if FALSE the chains will be combined}
 
 \item{interval_quantile}{what is the lower quantile of the interval of 
-interest (0.025 = 95% intervals)}
+interest (0.025 = 95\% intervals)}
 }
 \value{
 a ggplot2 object

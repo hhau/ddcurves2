@@ -6,7 +6,8 @@
 #' n_times (the number of time points at which density is recorded)
 #' depths (vector of depth values)
 #' densities (an n_times * n_depths matrix of density observations.) 
-#' @param ... other parameters that get passed to \link[rstan]{sampling}
+#' @param ... other parameters that get passed to 
+#'  \code{\link[rstan:stanmodel-method-sampling]{sampling}}
 #'
 #' @return an object of class 'stanfit'
 #' @export

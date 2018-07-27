@@ -16,7 +16,7 @@ plot_spline_posteriors(model_fit, stan_data_list, split_by_chain = TRUE,
 they will be, if FALSE the chains will be combined}
 
 \item{interval_quantile}{what is the lower quantile of the interval of 
-interest (0.025 = 95% intervals)}
+interest (0.025 = 95\% intervals)}
 }
 \value{
 a ggplot2 object? maybe something that has been grid.arranged?
