@@ -17,9 +17,9 @@ data {
 parameters {  
   // regression parameters with appropriate constraints
   vector[n_times] beta_zero_raw;
-  vector<lower = 0>[n_times] beta_one_raw;
-  vector<lower = 0>[n_times] beta_three_raw;
-  vector<lower = 0>[n_times] beta_six_raw;
+  vector[n_times] beta_one_raw;
+  vector[n_times] beta_three_raw;
+  vector[n_times] beta_six_raw;
 
   vector[2] beta_midpoint_raw[n_times];
 
@@ -41,13 +41,13 @@ parameters {
 
 transformed parameters {
   matrix[n_times, n_depths] fitted_values;
-  real mean_beta_zero = 1025 + 10 * mean_beta_zero_raw;
-  real<lower = 0> mean_beta_one = 5 + 2 * mean_beta_one_raw;
-  real<lower = 0> mean_beta_three = 80 + 15 * mean_beta_three_raw;
-  real<lower = 0> mean_beta_six = 80 + mean_beta_six_raw;
+  real<lower = 0> mean_beta_zero = 1023 + 0.2 * mean_beta_zero_raw;
+  real<lower = 0> mean_beta_one = 1 + 0.1 * mean_beta_one_raw;
+  real<lower = 0> mean_beta_three = 42 + 8 * mean_beta_three_raw;
+  real<lower = 0> mean_beta_six = 47 + 6 * mean_beta_six_raw;
   positive_ordered[2] mean_beta_midpoint;
   
-  vector[n_times] beta_zero = mean_beta_zero + sigma_beta[1] * beta_zero_raw;
+  vector<lower = 0>[n_times] beta_zero = mean_beta_zero + sigma_beta[1] * beta_zero_raw;
   vector<lower = 0>[n_times] beta_one = mean_beta_one + sigma_beta[2] * beta_one_raw;
   vector<lower = 0>[n_times] beta_three = mean_beta_three + sigma_beta[4] * beta_three_raw;
   vector<lower = 0>[n_times] beta_six = mean_beta_six + sigma_beta[6] * beta_six_raw;
@@ -56,8 +56,8 @@ transformed parameters {
   // issue.
   positive_ordered[2] beta_midpoint[n_times];  
 
-  mean_beta_midpoint[1] = 75 + 15 * mean_beta_midpoint_raw[1];
-  mean_beta_midpoint[2] = 150 + 15 * mean_beta_midpoint_raw[2];
+  mean_beta_midpoint[1] = 75 + 25 * mean_beta_midpoint_raw[1];
+  mean_beta_midpoint[2] = 150 + 12 * mean_beta_midpoint_raw[2];
 
   for (tt in 1:n_times) {
     beta_midpoint[tt, 1] = mean_beta_midpoint[1] + sigma_beta[3] * beta_midpoint_raw[tt, 1];
@@ -75,24 +75,24 @@ model {
     // vectorwise over individuals.
     densities[tt,] ~ normal(fitted_values[tt,], sigma_curve);
   
-    beta_midpoint_raw[tt, 1] ~ normal(0, 1);
-    beta_midpoint_raw[tt, 2] ~ normal(0, 1);
+    beta_midpoint_raw[tt, 1] ~ normal(0, 3);
+    beta_midpoint_raw[tt, 2] ~ normal(0, 3);
   }
   
   // "elicited" priors -
   // this prior would make no sense? I want to test it, might break things.
-  beta_zero_raw ~ normal(0, 1);
-  beta_one_raw ~ normal(0, 1);
-  beta_three_raw ~ normal(0, 1);
-  beta_six_raw ~ normal(0, 1);
+  beta_zero_raw ~ normal(0, 3);
+  beta_one_raw ~ normal(0, 3);
+  beta_three_raw ~ normal(0, 3);
+  beta_six_raw ~ normal(0, 3);
   
-  mean_beta_zero_raw ~ normal(0, 1);
-  mean_beta_one_raw ~ normal(0, 1);
-  mean_beta_three_raw ~ normal(0, 1);
-  mean_beta_six_raw ~ normal(0, 1);
+  mean_beta_zero_raw ~ normal(0, 3);
+  mean_beta_one_raw ~ normal(0, 3);
+  mean_beta_three_raw ~ normal(0, 3);
+  mean_beta_six_raw ~ normal(0, 3);
 
-  mean_beta_midpoint_raw[1] ~ normal(0, 1);
-  mean_beta_midpoint_raw[2] ~ normal(0, 1);
+  mean_beta_midpoint_raw[1] ~ normal(0, 3);
+  mean_beta_midpoint_raw[2] ~ normal(0, 3);
 
   // no extra truncation here because it is of type vector, and Stan does not
   // yet support truncation on vector types

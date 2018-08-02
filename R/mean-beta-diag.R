@@ -13,7 +13,7 @@ mean_beta_trace_diag <- function(stan_obj,
                                  print = FALSE,
                                  print_dir = "",
                                  ...) {
-    par_strings <- grep("mean_*", stan_obj@model_pars, value = TRUE)
+    par_strings <- grep("mean_beta_[a-z]+$*", stan_obj@model_pars, value = TRUE)
     bayesplot::color_scheme_set("mix-teal-pink")
     all_beta_mean_samples <- rstan::extract(stan_obj, pars = par_strings, permuted = FALSE)
     res <- bayesplot::mcmc_trace(all_beta_mean_samples)
@@ -43,7 +43,7 @@ mean_beta_density_diag <- function(stan_obj,
                                    print = FALSE, 
                                    print_dir = "",
                                    ...) {
-  par_strings <- grep("mean_*", stan_obj@model_pars, value = TRUE)
+  par_strings <- grep("mean_beta_[a-z]+$*", stan_obj@model_pars, value = TRUE)
   bayesplot::color_scheme_set("mix-teal-pink")
   all_beta_mean_samples <- rstan::extract(stan_obj, pars = par_strings, permuted = FALSE)
   res <- bayesplot::mcmc_dens_overlay(all_beta_mean_samples)

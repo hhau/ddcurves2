@@ -10,7 +10,8 @@ double_tanh_latent_spline(stan_data_list, ...)
 \arguments{
 \item{stan_data_list}{A named list of inputs to the Stan model, see details}
 
-\item{...}{other options that will be passed to \code{\link[rstan]{sampling}}}
+\item{...}{other options that will be passed to
+\code{\link[rstan:stanmodel-method-sampling]{sampling}}}
 }
 \value{
 a "stanfit" object
@@ -20,7 +21,7 @@ Fit the double tanh model, with a latent spline over time on the beta
 coefficients.
 }
 \details{
-the \strong{stan\_data\_list} object should have the following named
+the \code{stan_data_list} object should have the following named
 elements:
 \itemize{
 \item n_t : the number of timepoints in the data set.
