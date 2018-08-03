@@ -46,7 +46,7 @@ mean_beta_density_diag <- function(stan_obj,
   par_strings <- grep("mean_beta_[a-z]+$*", stan_obj@model_pars, value = TRUE)
   bayesplot::color_scheme_set("mix-teal-pink")
   all_beta_mean_samples <- rstan::extract(stan_obj, pars = par_strings, permuted = FALSE)
-  res <- bayesplot::mcmc_dens_overlay(all_beta_mean_samples)
+  res <- bayesplot::mcmc_dens_overlay(all_beta_mean_samples) + ggplot2::theme_bw()
   # print(res)
   
   if (print & (print_dir != "")) {
