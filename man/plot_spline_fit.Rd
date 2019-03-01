@@ -5,7 +5,8 @@
 \title{Plot the fittedn curves from the spline model}
 \usage{
 plot_spline_fit(model_fit, stan_data_list, times_to_plot = 1:4,
-  split_by_chain = TRUE, interval_quantile = 0.025, add_sigma_y = FALSE)
+  split_by_chain = TRUE, interval_quantile = 0.025,
+  add_sigma_y = FALSE)
 }
 \arguments{
 \item{model_fit}{a "stanfit" object of the latent spline model}

@@ -4,7 +4,8 @@
 \alias{plot_post_new_points}
 \title{produce a plot of the approximate posterior}
 \usage{
-plot_post_new_points(new_depths, new_densities, plot_quantile = 0.025, ...)
+plot_post_new_points(new_depths, new_densities, plot_quantile = 0.025,
+  ...)
 }
 \arguments{
 \item{new_depths}{new_depths}
